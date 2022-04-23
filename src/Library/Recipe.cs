@@ -6,7 +6,11 @@
 
 using System;
 using System.Collections;
+using System.Text;
 
+/// <summary>
+/// Moví la responsabilidad de imprimir texto en consola a la clase console printer para cumplir SRP
+/// </summary>
 namespace Full_GRASP_And_SOLID.Library
 {
     public class Recipe
@@ -24,15 +28,16 @@ namespace Full_GRASP_And_SOLID.Library
         {
             this.steps.Remove(step);
         }
-
-        public void PrintRecipe()
+        public string GetRecipeText()
         {
-            Console.WriteLine($"Receta de {this.FinalProduct.Description}:");
+            StringBuilder text = new StringBuilder($"Receta de {this.FinalProduct.Description}:\n");
             foreach (Step step in this.steps)
             {
-                Console.WriteLine($"{step.Quantity} de '{step.Input.Description}' " +
-                    $"usando '{step.Equipment.Description}' durante {step.Time}");
+                text.Append($"{step.Quantity} de '{step.Input.Description}' " +
+                    $"usando '{step.Equipment.Description}' durante {step.Time}\n");
             }
+
+            return text.ToString();
         }
     }
 }
